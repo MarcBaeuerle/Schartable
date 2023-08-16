@@ -1,0 +1,15 @@
+{
+    "name": "schartify",
+    "version": "1.0.0",
+    "description": "schartify",
+    "main": "index.js",
+    "scripts": {
+        "client": "cd client && npm run dev",
+        "installClient": "cd client && npm install",
+        "server": "cd server && node .",
+        "installServer": "cd server && npm install"
+    },
+    "keywords": [],
+    "author": "Marc Baeuerle",
+    "license": "ISC"
+}
