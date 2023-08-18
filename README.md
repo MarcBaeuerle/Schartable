@@ -9,7 +9,7 @@
 `npm run installServer`
 
 ## Running Locally
-These all need to be run on separate terminal windows
+These all need to be run on separate terminal windows from the main directory
 
 ### Running the Client 
 `npm run client`

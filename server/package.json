@@ -6,8 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc",
-        "dev": "nodemon dist/index.js",
-        "start": "node dist/index.js"
+        "dev": "nodemon dist/server.js",
+        "start": "node dist/server.js"
     },
     "keywords": [],
     "author": "Marc Baeuerle",
@@ -25,6 +25,7 @@
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "querystring": "^0.2.1",
+        "request": "~2.88.2",
         "spotify-web-api-node": "^5.0.2"
     }
 }
