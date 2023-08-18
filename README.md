@@ -1,15 +1,21 @@
 # Schartify
 
 
-## Running Locally
-### Cloning the Repo
+## Installation
 `git clone https://github.com/MarcBaeuerle/Schartify.git`
-### Installation
+
 `npm run installClient`
+
 `npm run installServer`
 
-### Running the Client
+## Running Locally
+These all need to be run on separate terminal windows
+
+### Running the Client 
 `npm run client`
 
 ### Running the Server
 `npm run server`
+
+### Typescript server compile on save
+`npm run serverTSC`

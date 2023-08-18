@@ -1,18 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_svg_1 = __importDefault(require("./assets/react.svg"));
+const vite_svg_1 = __importDefault(require("/vite.svg"));
 function App() {
-  const [count, setCount] = useState(0)
-
-    return (
-        <>
+    const [count, setCount] = (0, react_1.useState)(0);
+    return (<>
             <div>
                 <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
+                    <img src={vite_svg_1.default} className="logo" alt="Vite logo"/>
                 </a>
                 <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
+                    <img src={react_svg_1.default} className="logo react" alt="React logo"/>
                 </a>
             </div>
             <h1>Vite + React</h1>
@@ -28,8 +30,6 @@ function App() {
             <p className="read-the-docs">
                 Click on the Vite and React logos to learn more
             </p>
-        </>
-    )
+        </>);
 }
-
-export default App
+exports.default = App;

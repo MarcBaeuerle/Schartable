@@ -6,7 +6,8 @@
     "scripts": {
         "client": "cd client && npm run dev",
         "installClient": "cd client && npm install",
-        "server": "cd server && node .",
+        "server": "cd server && npm run dev",
+        "serverTSC": "cd server && tsc -w",
         "installServer": "cd server && npm install"
     },
     "keywords": [],
