@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '../.env' });
 
-const CLIENT_URI = process.env.VITE_CLIENT_URI || 'http://localhost:5173/';
+const CLIENT_URI = process.env.VITE_CLIENT_URI || 'http://localhost:5173/?';
 const REDIRECT_URI = `http://localhost:3001/callback`;
 const CLIENT_ID = process.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = process.env.VITE_CLIENT_SECRET;
