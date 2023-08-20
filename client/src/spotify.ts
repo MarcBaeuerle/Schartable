@@ -5,6 +5,12 @@ const DEBUG = true;
 const EXPIRATION_TIME: number = 3600 * 1000;
 const SERVER = `http://localhost:3001`;
 
+interface Me {
+    Name: string;
+}
+
+
+
 const setTokenTimeStamp = (): void => {
     window.localStorage.setItem('token_timestamp', Date.now().toString());
 }
@@ -47,6 +53,7 @@ const refreshAccessToken = async (): Promise<void> => {
         })
 }
 
+//called after the user presses login and URL params are present
 export const setAccessToken = (access_token: string, refresh_token: string): void => {
     if (DEBUG) groupConsole(`setAccessToken`, access_token, refresh_token);
 
@@ -69,4 +76,28 @@ export const logout = (): void => {
     window.localStorage.removeItem('spotify_refresh_token');
     window.location.reload();
 }
+
+const headers = {
+    Authorization: `Bearer ${getAccessToken()}`,
+    'Content-Type': 'application/json',
+}
+
+export const example = async () => {
+    console.log(await axios.get('https://api.spotify.com/v1/me', { headers }));
+}
+
+
+export const getUser = () => axios.get('https://api.spotify.com/v1/me', { headers });
+
+export const getTopTracks = (time: "short_term" | "long_term") => {
+    axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, { headers });
+}
+
+export const getTopArtists = (time: "short_term" | "long_term") => {
+    axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, { headers });
+}
+
+
+
+
 

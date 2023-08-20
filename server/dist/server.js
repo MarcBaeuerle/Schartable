@@ -25,7 +25,7 @@ app.get(`/login`, (req, res) => {
     if (DEBUG)
         console.log('LOGIN hit');
     const state = generateRandomString(16);
-    const scope = `user-read-private user-read-email`;
+    const scope = `user-read-private user-top-read`;
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
             response_type: 'code',
