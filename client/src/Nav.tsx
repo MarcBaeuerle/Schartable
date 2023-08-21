@@ -1,12 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { logout } from "./spotify";
 
 export default function Nav() {
 
     return (
         <>
-            <h3>Home</h3>
-            <h3>Privacy Policy</h3>
-            <h3>Log In</h3>
+            <Link to="/">Home</Link>
+            <Link to="/Privacy">Privacy Policy</Link>
+            <button onClick={logout}>Logout</button>
         </>
     )
 

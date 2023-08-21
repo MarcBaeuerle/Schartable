@@ -5,12 +5,6 @@ const DEBUG = true;
 const EXPIRATION_TIME: number = 3600 * 1000;
 const SERVER = `http://localhost:3001`;
 
-interface Me {
-    Name: string;
-}
-
-
-
 const setTokenTimeStamp = (): void => {
     window.localStorage.setItem('token_timestamp', Date.now().toString());
 }
@@ -71,9 +65,9 @@ const getAccessToken = (): string => {
 }
 
 export const logout = (): void => {
-    window.localStorage.removeItem('spotify_token_timestamp');
-    window.localStorage.removeItem('spotify_access_token');
-    window.localStorage.removeItem('spotify_refresh_token');
+    window.localStorage.removeItem('token_timestamp');
+    window.localStorage.removeItem('access_token');
+    window.localStorage.removeItem('refresh_token');
     window.location.reload();
 }
 
