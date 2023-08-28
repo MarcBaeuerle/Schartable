@@ -28,6 +28,8 @@ app.get(`/login`, (req, res) => {
     if (DEBUG) console.log('LOGIN hit');
     const state = generateRandomString(16);
     const scope = `user-read-private user-top-read`;
+    const dialog = req.query.in;
+    console.log(`show_dialog: ${dialog}`);
 
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
@@ -35,7 +37,8 @@ app.get(`/login`, (req, res) => {
             client_id: CLIENT_ID,
             scope: scope,
             redirect_uri: REDIRECT_URI,
-            state: state
+            state: state,
+            show_dialog: dialog
         })
     )
 })

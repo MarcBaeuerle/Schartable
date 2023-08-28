@@ -15,8 +15,8 @@ export default function App() {
     if (access_token && refresh_token) {
         setAccessToken(access_token, refresh_token);
         window.history.pushState({}, '', "/");
-    }
-
+    } 
+    if (error) console.log(`error: ${error}`);
     return (
         <>
             <Nav />

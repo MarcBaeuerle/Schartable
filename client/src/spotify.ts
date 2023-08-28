@@ -3,6 +3,7 @@ import { groupConsole } from "./util/util";
 
 const DEBUG = true;
 const EXPIRATION_TIME: number = 3600 * 1000;
+// const EXPIRATION_TIME_TEST: number = 3 * 1000;
 const SERVER = `http://localhost:3001`;
 
 const setTokenTimeStamp = (): void => {
@@ -69,6 +70,11 @@ export const logout = (): void => {
     window.localStorage.removeItem('access_token');
     window.localStorage.removeItem('refresh_token');
     window.location.reload();
+}
+
+export const checkLoggedIn = (): boolean => {
+    console.log(getLocalAccessToken());
+    return false;
 }
 
 const headers = {

@@ -8,7 +8,7 @@ export default function Profile() {
         getUser().then(res => {
             setName(res.data.display_name)
         })
-        console.log(`bruh`);
+        console.log(`Setting Name`);
     }, [])
 
     return (

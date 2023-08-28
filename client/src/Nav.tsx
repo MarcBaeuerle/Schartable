@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { logout } from "./spotify";
 
 export default function Nav() {
-
     return (
         <>
             <Link to="/">Home</Link>
