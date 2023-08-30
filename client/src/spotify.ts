@@ -49,12 +49,13 @@ const refreshAccessToken = async (): Promise<void> => {
 }
 
 //called after the user presses login and URL params are present
-export const setAccessToken = (access_token: string, refresh_token: string): void => {
+export const setAccessToken = (access_token: string, refresh_token: string): boolean => {
     if (DEBUG) groupConsole(`setAccessToken`, access_token, refresh_token);
 
     setLocalAccessToken(access_token);
     setLocalRefreshToken(refresh_token);
     setTokenTimeStamp();
+    return true;
 }
 
 const getAccessToken = (): string => {
@@ -73,28 +74,35 @@ export const logout = (): void => {
 }
 
 export const checkLoggedIn = (): boolean => {
-    console.log(getLocalAccessToken());
+    if (localStorage.getItem("access_token") === null) {
+        return true;
+    }
     return false;
 }
 
-const headers = {
-    Authorization: `Bearer ${getAccessToken()}`,
-    'Content-Type': 'application/json',
+
+const getHeaders = (): Object => {
+    let headers = {
+        Authorization: `Bearer ${getAccessToken()}`,
+        'Content-Type': 'application/json',
+    }
+    return {headers};
 }
 
 export const example = async () => {
-    console.log(await axios.get('https://api.spotify.com/v1/me', { headers }));
+    console.log(await axios.get('https://api.spotify.com/v1/me', getHeaders()));
 }
 
-
-export const getUser = () => axios.get('https://api.spotify.com/v1/me', { headers });
-
-export const getTopTracks = (time: "short_term" | "long_term") => {
-    axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, { headers });
+export const getUser = async () => {
+    return (await axios.get('https://api.spotify.com/v1/me', getHeaders()));
 }
 
-export const getTopArtists = (time: "short_term" | "long_term") => {
-    axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, { headers });
+export const getTopTracks = async (time: "short_term" | "long_term") => {
+    return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, getHeaders()))
+}
+
+export const getTopArtists = async (time: "short_term" | "long_term") => {
+    return (await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders()));
 }
 
 

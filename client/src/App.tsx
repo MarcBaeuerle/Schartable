@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { setAccessToken } from './spotify';
 import { Route, Routes } from 'react-router-dom';
 
@@ -12,17 +12,21 @@ const refresh_token = new URLSearchParams(window.location.search).get('refresh_t
 const error = new URLSearchParams(window.location.search).get('error');
 
 export default function App() {
-    if (access_token && refresh_token) {
-        setAccessToken(access_token, refresh_token);
-        window.history.pushState({}, '', "/");
-    } 
-    if (error) console.log(`error: ${error}`);
+    const [access, setAccess] = useState(false);
+
+    useEffect(() => {
+        if (access_token && refresh_token) {
+            if (setAccessToken(access_token, refresh_token)) setAccess(true);
+            window.history.pushState({}, '', "/");
+        } 
+        if (error) console.log(`error: ${error}`);
+    }, [])
     return (
         <>
             <Nav />
             <div>
                 <Routes>
-                    <Route path="/" element={access_token ? <Profile /> : <Login />} />
+                    <Route path="/" element={access ? <Profile /> : <Login />} />
                     <Route path="/Privacy" element={<Privacy />} />
                 </Routes>
             </div>

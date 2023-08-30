@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { getUser } from "./spotify";
+import { getTopTracks, getUser } from "./spotify";
 
 export default function Profile() {
     const [name, setName] = useState('');
+    console.log(`PROFILE RENDERED`);
 
     useEffect(() => {
-        getUser().then(res => {
-            setName(res.data.display_name)
-        })
-        console.log(`Setting Name`);
+        getUser().then((res) => {
+            setName(res.data.display_name);
+        });
     }, [])
 
     return (
     <>
-            <h1>{name}'s Schartify</h1>
+            <h1>{name}'</h1>
     </>
     )
 }
