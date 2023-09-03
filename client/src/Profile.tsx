@@ -9,7 +9,6 @@ export default function Profile() {
     let long_artists: Artist[];
     let short_tracks: Track[];
     let short_artists: Artist[];
-    console.log(`PROFILE RENDER`)
     const [combinedData, setCombinedData] = useState<CombinedData>();
     const [error, setError] = useState<Boolean>(false);
 
@@ -45,7 +44,8 @@ export default function Profile() {
                         name: track.name,
                         artists: artist_list,
                         url: track.external_urls.spotify,
-                        ID: track.id
+                        ID: track.id,
+                        popularity: track.popularity
                     }
                     tempTracks.push(tempTrack);
                 })
@@ -95,20 +95,21 @@ export default function Profile() {
             })
     }
 
-    // get short term stats
     useEffect(() => {
+        if (combinedData) return;
+
         getUser().then((res) => {name = res.data.display_name})
         getTracks("short_term");
         getTracks("long_term");
         getArtists("short_term");
         getArtists("long_term");
-
     }, [])
 
     return (
         <>
-            <h1>{combinedData?.user_name}'s</h1>
-            <RadarGraph />
+            <h1>{combinedData?.user_name}'s Schartify</h1>
+            <RadarGraph data={combinedData} />
+
         </>
     )
 }

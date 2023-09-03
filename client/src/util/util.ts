@@ -10,12 +10,12 @@ export interface CombinedData {
     }
 }
 
-
 export interface Track {
     name: string;
     artists: Array<string>;
     url: string;
     ID: string;
+    popularity: number;
 }
 
 export interface Artist {
@@ -24,6 +24,19 @@ export interface Artist {
 }
 
 export interface TrackStats {
+    duration: number;
+    tempo: number;
+    popularity: number;
+    mood: number;
+    energy: number;
+}
+
+export interface ChartAverages {
+    long_term: AverageStats;
+    short_term: AverageStats
+}
+
+export interface AverageStats {
     duration: number;
     tempo: number;
     popularity: number;

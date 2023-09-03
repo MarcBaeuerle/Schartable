@@ -1,9 +1,8 @@
 import axios from "axios";
-import { groupConsole } from "./util/util";
+import { groupConsole, Track } from "./util/util";
 
-const DEBUG = true;
+const DEBUG = false;
 const EXPIRATION_TIME: number = 3600 * 1000;
-// const EXPIRATION_TIME_TEST: number = 3 * 1000;
 const SERVER = `http://localhost:3001`;
 
 const setTokenTimeStamp = (): void => {
@@ -105,6 +104,18 @@ export const getTopArtists = async (time: "short_term" | "long_term") => {
     return (await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders()));
 }
 
+export const getTracksAnalysis = async (tracksObj: Array<Track>): Promise<any> => {
+    let id_arr: Array<string> = [];
+    tracksObj.map((data) => {
+        id_arr.push(data.ID);
+    })
+
+    let params = id_arr.toString().split(',').join('%2C');
+
+    let URL = 'https://api.spotify.com/v1/audio-features?ids=' + params
+    console.log(URL);
+    return (await axios.get(URL, getHeaders()));
+}
 
 
 
