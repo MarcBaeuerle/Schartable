@@ -109,11 +109,8 @@ export const getTracksAnalysis = async (tracksObj: Array<Track>): Promise<any> =
     tracksObj.map((data) => {
         id_arr.push(data.ID);
     })
-
     let params = id_arr.toString().split(',').join('%2C');
-
-    let URL = 'https://api.spotify.com/v1/audio-features?ids=' + params
-    console.log(URL);
+    let URL = 'https://api.spotify.com/v1/audio-features?ids=' + params;
     return (await axios.get(URL, getHeaders()));
 }
 
