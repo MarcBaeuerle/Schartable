@@ -1,3 +1,5 @@
+import BezierEasing from "bezier-easing";
+
 export interface CombinedData {
     user_name: string;
     long_term: {
@@ -65,24 +67,8 @@ export function convertArrToReadableString(arr: Array<string>): string {
 }
 
 export const calculateBezier = (t: number): number => {
-    const p0 = 0;
-    const p1 = 0.4;
-    const p2 = 0.6;
-    const p3 = 1;
-
-    return (
-            (1 - t) * (1 - t) * (1 - t) * p0 +
-            3 * (1 - t) * (1 - t) * t * p1 +
-            3 * (1 - t) * t * t * p2 +
-            t * t * t * p3
-    )
-
-    // return (
-    //     Math.pow(1 - t, 3) * p0 +
-    //         3 * Math.pow(1 - t, 2) * t * p1 +
-    //         3 * (1 - t) * Math.pow(t, 2) * p2 +
-    //         Math.pow(t, 3) * p3
-    // )
+    let easing = BezierEasing(0.4,0,0.6,1);
+    return easing(t);
 }
 
 
