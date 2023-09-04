@@ -52,6 +52,7 @@ export const groupConsole = (name: string, access_token: string, refresh_token: 
     console.groupEnd();
 }
 
+
 export function convertArrToReadableString(arr: Array<string>): string {
     if (arr.length === 0) return '';
     if (arr.length === 1) return arr[0].toString();
@@ -62,3 +63,41 @@ export function convertArrToReadableString(arr: Array<string>): string {
         return `${prevText}${delimiter} ${nextNum}`;
     });
 }
+
+export const calculateBezier = (t: number): number => {
+    const p0 = 0;
+    const p1 = 0.4;
+    const p2 = 0.6;
+    const p3 = 1;
+
+    return (
+            (1 - t) * (1 - t) * (1 - t) * p0 +
+            3 * (1 - t) * (1 - t) * t * p1 +
+            3 * (1 - t) * t * t * p2 +
+            t * t * t * p3
+    )
+
+    // return (
+    //     Math.pow(1 - t, 3) * p0 +
+    //         3 * Math.pow(1 - t, 2) * t * p1 +
+    //         3 * (1 - t) * Math.pow(t, 2) * p2 +
+    //         Math.pow(t, 3) * p3
+    // )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

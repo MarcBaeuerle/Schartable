@@ -1,19 +1,39 @@
 import { useEffect, useState } from "react";
-import { Track, TrackStats, CombinedData, ChartAverages, AverageStats } from "./util/util"
+import { calculateBezier, CombinedData, ChartAverages, AverageStats } from "./util/util"
 import { getTracksAnalysis } from "./spotify";
-import { Radar } from "react-chartjs-2";
-import { Chart as ChartJS } from 'chart.js/auto';
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+import { Radar } from 'react-chartjs-2';
+
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
 interface Props {
     data: CombinedData | undefined
 }
 
-
+const computeScores = (data: AverageStats): Array<number> => {
+    return [0];
+}
 
 export default function RadarGraph(data: Props) {
-    console.log(data);
     let short_averages: AverageStats;
     let long_averages: AverageStats;
+    console.log(calculateBezier(0.2));
 
     const [finalAverages, setFinalAverages] = useState<ChartAverages>();
     const [errorMsg, setErrorMsg] = useState<Boolean>(false);
@@ -41,14 +61,21 @@ export default function RadarGraph(data: Props) {
         })
 
         getTracksAnalysis(range).then((res) => {
-            const len = res.data.audio_features.length;
+            let len: number;
 
-            res.data.audio_features.map((x: any) => {
+            (time === "short_term") ? len = 10 : len = res.data.audio_features.length;
+
+            for (let i = 0; i < ((time === "short_term") ? 10 : len); i++) {
+                if (res.data.audio_features[i] === undefined) {
+                    len = i - 1;
+                    break;
+                }
+                let x = res.data.audio_features[i];
                 tempoTotal += x.tempo;
                 moodTotal += x.valence;
                 durationTotal += x.duration_ms;
                 energyTotal += x.energy;
-            })
+            }
 
             const averages: AverageStats = {
                 tempo: tempoTotal / len,
@@ -82,9 +109,65 @@ export default function RadarGraph(data: Props) {
         getAnalysis("long_term");
     });
 
+    const chartData = {
+        labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'],
+        datasets: [{
+            label: "Last Month",
+            data: [10,4,5,9,2],
+            fill: true,
+            backgroundColor: 'rgba(30, 215, 96, 0.3)',
+            borderColor: 'rgb(19, 145, 64)',
+            pointBackgroundColor: 'rgb(19, 145, 64)',
+            pointBorderColor: '#000',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(19, 145, 64)'
+        }, {
+            label: "All Time",
+            data: [7,3,2,1,9],
+            fill: true,
+            backgroundColor: 'rgba(37,76,218, 0.2)',
+            borderColor: 'rgb(15, 30, 87)',
+            pointBackgroundColor: 'rgb(15, 30, 87)',
+            pointBorderColor: '#000',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(15, 30, 87)'
+        }]
+    }
+
     return (
         <>
             <h1>Chart</h1>
+            <div>
+                <Radar data={chartData} options={{
+                    scales: {
+                        r: {
+                            ticks: { //Removes numbers
+                                display: false,
+                            },
+                            angleLines: {
+                                color: 'black',
+                            },
+                            pointLabels: {
+                                color: 'black',
+                                font: {
+                                    size: 17,
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 16,
+                                }
+                            }
+                        }
+                    }
+                }} />
+            </div>
         </>
     )
 }
