@@ -1,5 +1,3 @@
-import BezierEasing from "bezier-easing";
-
 export interface CombinedData {
     user_name: string;
     long_term: {
@@ -46,14 +44,12 @@ export interface AverageStats {
     energy: number;
 }
 
-
 export const groupConsole = (name: string, access_token: string, refresh_token: string): void => {
     console.group(name);
     console.log(`AC: ${access_token.slice(0,5)}`);
     console.log(`RT: ${refresh_token.slice(0,5)}`);
     console.groupEnd();
 }
-
 
 export function convertArrToReadableString(arr: Array<string>): string {
     if (arr.length === 0) return '';
@@ -66,11 +62,12 @@ export function convertArrToReadableString(arr: Array<string>): string {
     });
 }
 
-export const calculateBezier = (t: number): number => {
-    let easing = BezierEasing(0.4,0,0.6,1);
-    return easing(t);
+export const clamp = (value: number, lo: number, hi: number): number => {
+    if (value < lo) {
+        return lo;
+    }
+    return value > hi ? hi : value;
 }
-
 
 
 

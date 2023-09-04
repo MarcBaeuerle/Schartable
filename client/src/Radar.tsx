@@ -1,24 +1,33 @@
 import { useEffect, useState } from "react";
-import { calculateBezier, CombinedData, ChartAverages, AverageStats } from "./util/util"
+import { clamp, CombinedData, ChartAverages, AverageStats } from "./util/util"
 import { getTracksAnalysis } from "./spotify";
 import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
+import BezierEasing from "bezier-easing";
+
+const easing = BezierEasing(0.4,0,0.6,1);
+const durationEasing = BezierEasing(0.2,0,0.8,1);
+const MIN_D = 60000; //1 minutes
+const MAX_D = 360000; //6.5 minutes
+const MIN_T = 40;
+const MAX_T = 180;
+const EMPTY = [0,0,0,0,0];
 
 ChartJS.register(
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
 );
 
 interface Props {
@@ -26,13 +35,18 @@ interface Props {
 }
 
 const computeScores = (data: AverageStats): Array<number> => {
-    return [0];
+    const newDuration = durationEasing((clamp(data.duration, MIN_D, MAX_D) - MIN_D) / (MAX_D - MIN_D));
+    const newTempo = easing((clamp(data.tempo, MIN_T, MAX_T) - MIN_T) / (MAX_T - MIN_T));
+    const newPopularity = easing(data.popularity / 100);
+    const newMood = easing(data.mood);
+    const newEnergy = easing(data.energy);
+
+    return [newDuration, newTempo, newPopularity, newMood, newEnergy].map(x => x * 10);
 }
 
 export default function RadarGraph(data: Props) {
     let short_averages: AverageStats;
     let long_averages: AverageStats;
-    console.log(calculateBezier(0.2));
 
     const [finalAverages, setFinalAverages] = useState<ChartAverages>();
     const [errorMsg, setErrorMsg] = useState<Boolean>(false);
@@ -44,20 +58,14 @@ export default function RadarGraph(data: Props) {
                 short_term: short_averages
             }
             setFinalAverages(final);
-            console.log(final);
         }
         return;
-
     }
 
     const getAnalysis = (time: "short_term" | "long_term") => {
         const range = (time === "short_term") ? data.data!.short_term.Tracks : data.data!.long_term.Tracks;
 
         let [popularityTotal, tempoTotal, moodTotal, durationTotal, energyTotal] = [0,0,0,0,0];
-
-        range.forEach((x) => {
-            popularityTotal += x.popularity;
-        })
 
         getTracksAnalysis(range).then((res) => {
             let len: number;
@@ -74,13 +82,14 @@ export default function RadarGraph(data: Props) {
                 moodTotal += x.valence;
                 durationTotal += x.duration_ms;
                 energyTotal += x.energy;
+                popularityTotal += range[i].popularity;
             }
 
             const averages: AverageStats = {
-                tempo: tempoTotal / len,
-                mood: moodTotal / len,
                 duration: durationTotal / len,
+                tempo: tempoTotal / len,
                 popularity: popularityTotal / len,
+                mood: moodTotal / len,
                 energy: energyTotal / len
             };
 
@@ -112,7 +121,7 @@ export default function RadarGraph(data: Props) {
         labels: ['Duration', 'Tempo', 'Popularity', 'Mood', 'Energy'],
         datasets: [{
             label: "Last Month",
-            data: [10,4,5,9,2],
+            data: finalAverages ? computeScores(finalAverages.short_term) : EMPTY,
             fill: true,
             backgroundColor: 'rgba(30, 215, 96, 0.3)',
             borderColor: 'rgb(19, 145, 64)',
@@ -121,16 +130,16 @@ export default function RadarGraph(data: Props) {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgb(19, 145, 64)'
         }, {
-            label: "All Time",
-            data: [7,3,2,1,9],
-            fill: true,
-            backgroundColor: 'rgba(37,76,218, 0.2)',
-            borderColor: 'rgb(15, 30, 87)',
-            pointBackgroundColor: 'rgb(15, 30, 87)',
-            pointBorderColor: '#000',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(15, 30, 87)'
-        }]
+                label: "All Time",
+                data: finalAverages ? computeScores(finalAverages.long_term) : EMPTY,
+                fill: true,
+                backgroundColor: 'rgba(37,76,218, 0.2)',
+                borderColor: 'rgb(15, 30, 87)',
+                pointBackgroundColor: 'rgb(15, 30, 87)',
+                pointBorderColor: '#000',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(15, 30, 87)'
+            }]
     }
 
     return (
