@@ -3,6 +3,7 @@ import { getTopArtists, getTopTracks, getUser } from "./spotify";
 import { Artist, CombinedData, Track } from "./util/util";
 import RadarGraph from "./Radar";
 import BottomList from "./BottomList";
+import SidePanel from "./SidePanel";
 
 export default function Profile() {
     let name: string;

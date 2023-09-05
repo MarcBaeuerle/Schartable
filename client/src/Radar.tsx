@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 import BezierEasing from "bezier-easing";
+import SidePanel from "./SidePanel";
 
 const easing = BezierEasing(0.4,0,0.6,1);
 const durationEasing = BezierEasing(0.2,0,0.8,1);
@@ -29,7 +30,6 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
 
 const computeScores = (data: AverageStats): Array<number> => {
     const newDuration = durationEasing((clamp(data.duration, MIN_D, MAX_D) - MIN_D) / (MAX_D - MIN_D));
@@ -103,8 +103,6 @@ export default function RadarGraph(data: DataProps) {
                 console.log(error);
                 setErrorMsg(true);
             })
-
-
         return;
     }
 
@@ -141,7 +139,7 @@ export default function RadarGraph(data: DataProps) {
 
     return (
         <>
-            <h1>Chart</h1>
+            <SidePanel data={finalAverages?.short_term} />
             <div>
                 <Radar data={chartData} options={{
                     scales: {

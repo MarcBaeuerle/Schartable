@@ -52,9 +52,9 @@ export default function BottomList(data: DataProps) {
 
     return (
         <>
+            <button onClick={() => {toggleList()}}>{buttonText()}</button>
             {showArtists ? renderArtists() : renderTracks()}
             <button onClick={() => {increaseShow()}}>Show more</button>
-            <button onClick={() => {toggleList()}}>{buttonText()}</button>
         </>
 
     )

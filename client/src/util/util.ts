@@ -48,6 +48,10 @@ export interface DataProps {
     data: CombinedData | undefined
 }
 
+export interface AverageProps {
+    data: AverageStats | undefined
+}
+
 export const groupConsole = (name: string, access_token: string, refresh_token: string): void => {
     console.group(name);
     console.log(`AC: ${access_token.slice(0,5)}`);
@@ -73,7 +77,11 @@ export const clamp = (value: number, lo: number, hi: number): number => {
     return value > hi ? hi : value;
 }
 
-
+export const msToMinutesAndSecond = (ms: number): string => {
+    const minutes = Math.floor(ms / 60000).toString();
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    return minutes + 'm ' + seconds + 's';
+}
 
 
 
