@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Profile from './Profile';
 import Login from './Login';
 import Privacy from './Privacy';
+import Footer from './Footer';
 
 const access_token = new URLSearchParams(window.location.search).get('access_token');
 const refresh_token = new URLSearchParams(window.location.search).get('refresh_token');
@@ -30,6 +31,7 @@ export default function App() {
                     <Route path="/Privacy" element={<Privacy />} />
                 </Routes>
             </div>
+            <Footer />
         </>
     )
 }

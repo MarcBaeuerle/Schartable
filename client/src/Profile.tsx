@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { getTopArtists, getTopTracks, getUser } from "./spotify";
-import { Artist, CombinedData, Track, TrackStats, convertArrToReadableString } from "./util/util";
+import { Artist, CombinedData, Track } from "./util/util";
 import RadarGraph from "./Radar";
+import BottomList from "./BottomList";
 
 export default function Profile() {
     let name: string;
@@ -31,9 +32,9 @@ export default function Profile() {
     }
 
     const getTracks = async (time: "short_term" | "long_term") => {
-        let tempTracks: Array<Track> = [];
         getTopTracks(time)
             .then((res) => {
+                let tempTracks: Array<Track> = [];
                 res.data.items.map((track: any) => {
                     let artist_list: Array<string> = [];
                     track.artists.map((list: any) => {
@@ -68,9 +69,9 @@ export default function Profile() {
     }
 
     const getArtists = async (time: "short_term" | "long_term") => {
-        let tempArtists: Array<Artist> = [];
         getTopArtists(time)
             .then((res) => {
+                let tempArtists: Array<Artist> = [];
                 res.data.items.map((artists: any) => {
                     let tempArtist: Artist = {
                         name: artists.name,
@@ -109,7 +110,7 @@ export default function Profile() {
         <>
             <h1>{combinedData?.user_name}'s Schartify</h1>
             <RadarGraph data={combinedData} />
-
+            <BottomList data={combinedData} />
         </>
     )
 }

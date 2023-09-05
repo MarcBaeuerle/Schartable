@@ -44,6 +44,10 @@ export interface AverageStats {
     energy: number;
 }
 
+export interface DataProps {
+    data: CombinedData | undefined
+}
+
 export const groupConsole = (name: string, access_token: string, refresh_token: string): void => {
     console.group(name);
     console.log(`AC: ${access_token.slice(0,5)}`);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { clamp, CombinedData, ChartAverages, AverageStats } from "./util/util"
+import { clamp, ChartAverages, AverageStats, DataProps } from "./util/util"
 import { getTracksAnalysis } from "./spotify";
 import {
     Chart as ChartJS,
@@ -15,8 +15,8 @@ import BezierEasing from "bezier-easing";
 
 const easing = BezierEasing(0.4,0,0.6,1);
 const durationEasing = BezierEasing(0.2,0,0.8,1);
-const MIN_D = 60000; //1 minutes
-const MAX_D = 360000; //6.5 minutes
+const MIN_D = 60000; //1 minute
+const MAX_D = 360000; //6 minutes
 const MIN_T = 40;
 const MAX_T = 180;
 const EMPTY = [0,0,0,0,0];
@@ -30,9 +30,6 @@ ChartJS.register(
     Legend
 );
 
-interface Props {
-    data: CombinedData | undefined
-}
 
 const computeScores = (data: AverageStats): Array<number> => {
     const newDuration = durationEasing((clamp(data.duration, MIN_D, MAX_D) - MIN_D) / (MAX_D - MIN_D));
@@ -44,7 +41,7 @@ const computeScores = (data: AverageStats): Array<number> => {
     return [newDuration, newTempo, newPopularity, newMood, newEnergy].map(x => x * 10);
 }
 
-export default function RadarGraph(data: Props) {
+export default function RadarGraph(data: DataProps) {
     let short_averages: AverageStats;
     let long_averages: AverageStats;
 
