@@ -109,7 +109,8 @@ export default function Profile() {
 
     return (
         <>
-            <h1>{combinedData?.user_name}'s Schartify</h1>
+            <h1 className="text-5xl text-center py-4 font-bold font-mont text-blue-950">
+                {combinedData?.user_name ? `${combinedData.user_name}'s` : ''} Schartify</h1>
             <RadarGraph data={combinedData} />
             <BottomList data={combinedData} />
         </>

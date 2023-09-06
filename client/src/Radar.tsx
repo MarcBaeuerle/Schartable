@@ -139,38 +139,40 @@ export default function RadarGraph(data: DataProps) {
 
     return (
         <>
-            <SidePanel data={finalAverages?.short_term} />
-            <div>
-                <Radar data={chartData} options={{
-                    scales: {
-                        r: {
-                            ticks: { //Removes numbers
-                                display: false,
-                            },
-                            angleLines: {
-                                color: 'black',
-                            },
-                            pointLabels: {
-                                color: 'black',
-                                font: {
-                                    size: 17,
-                                }
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 10,
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                font: {
-                                    size: 16,
+            <section className="flex flex-wrap justify-center gap-10 pt-4">
+                <div>
+                    <Radar data={chartData} options={{
+                        scales: {
+                            r: {
+                                ticks: { //Removes numbers
+                                    display: false,
+                                },
+                                angleLines: {
+                                    color: 'black',
+                                },
+                                pointLabels: {
+                                    color: 'black',
+                                    font: {
+                                        size: 17,
+                                    }
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 10,
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 16,
+                                    }
                                 }
                             }
                         }
-                    }
-                }} />
-            </div>
+                    }} />
+                </div>
+                <SidePanel data={finalAverages?.short_term} />
+            </section>
         </>
     )
 }

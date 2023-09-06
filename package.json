@@ -8,7 +8,8 @@
         "installClient": "cd client && npm install",
         "server": "cd server && npm run dev",
         "serverTSC": "cd server && tsc -w",
-        "installServer": "cd server && npm install"
+        "installServer": "cd server && npm install",
+        "clientTailwind": "cd client && npm run tailwind-watch"
     },
     "keywords": [],
     "author": "Marc Baeuerle",

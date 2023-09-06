@@ -31,7 +31,7 @@ export default function App() {
                     <Route path="/Privacy" element={<Privacy />} />
                 </Routes>
             </div>
-            <Footer />
+            {access ? <Footer /> : null}
         </>
     )
 }
