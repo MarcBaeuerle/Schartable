@@ -3,7 +3,6 @@ import { getTopArtists, getTopTracks, getUser } from "./spotify";
 import { Artist, CombinedData, Track } from "./util/util";
 import RadarGraph from "./Radar";
 import BottomList from "./BottomList";
-import SidePanel from "./SidePanel";
 
 export default function Profile() {
     let name: string;
@@ -47,7 +46,8 @@ export default function Profile() {
                         artists: artist_list,
                         url: track.external_urls.spotify,
                         ID: track.id,
-                        popularity: track.popularity
+                        popularity: track.popularity,
+                        release: track.album.release_date
                     }
                     tempTracks.push(tempTrack);
                 })
@@ -76,7 +76,8 @@ export default function Profile() {
                 res.data.items.map((artists: any) => {
                     let tempArtist: Artist = {
                         name: artists.name,
-                        url: artists.external_urls.spotify
+                        url: artists.external_urls.spotify,
+                        genre: artists.genres
                     }
                     tempArtists.push(tempArtist);
                 })

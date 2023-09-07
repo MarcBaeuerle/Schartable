@@ -16,11 +16,13 @@ export interface Track {
     url: string;
     ID: string;
     popularity: number;
+    release: string;
 }
 
 export interface Artist {
     name: string;
     url: string;
+    genre: Array<string>;
 }
 
 export interface TrackStats {
@@ -33,7 +35,7 @@ export interface TrackStats {
 
 export interface ChartAverages {
     long_term: AverageStats;
-    short_term: AverageStats
+    short_term: AverageStats;
 }
 
 export interface AverageStats {
@@ -42,6 +44,8 @@ export interface AverageStats {
     popularity: number;
     mood: number;
     energy: number;
+    genre: string;
+    release: string;
 }
 
 export interface DataProps {

@@ -41,6 +41,25 @@ const computeScores = (data: AverageStats): Array<number> => {
     return [newDuration, newTempo, newPopularity, newMood, newEnergy].map(x => x * 10);
 }
 
+const findMode = (array: Array<string>, genre: boolean): string => {
+    if (array.length == 0) return '';
+    let hashMap = new Map<string, number>();
+
+    let maxElement = array[0];
+    let maxCount = 1;
+
+    array.forEach((x) => {
+        let el = (genre ? x : x.slice(0,3));
+        hashMap.get(el) ? hashMap.set(el, hashMap.get(el)! +1) : hashMap.set(el, 1);
+
+        if (hashMap.get(el)! > maxCount) {
+            maxElement = el;
+            maxCount = hashMap.get(el)!;
+        }
+    })
+    return maxElement;
+}
+
 export default function RadarGraph(data: DataProps) {
     let short_averages: AverageStats;
     let long_averages: AverageStats;
@@ -61,11 +80,13 @@ export default function RadarGraph(data: DataProps) {
 
     const getAnalysis = (time: "short_term" | "long_term") => {
         const range = (time === "short_term") ? data.data!.short_term.Tracks : data.data!.long_term.Tracks;
-
         let [popularityTotal, tempoTotal, moodTotal, durationTotal, energyTotal] = [0,0,0,0,0];
 
         getTracksAnalysis(range).then((res) => {
             let len: number;
+            let release: Array<string> = [];
+            let genres: Array<string> = [];
+            const gre = (time === "short_term") ? data.data!.short_term.Artists : data.data!.long_term.Artists;
 
             (time === "short_term") ? len = 10 : len = res.data.audio_features.length;
 
@@ -80,6 +101,8 @@ export default function RadarGraph(data: DataProps) {
                 durationTotal += x.duration_ms;
                 energyTotal += x.energy;
                 popularityTotal += range[i].popularity;
+                release = [...release, range[i].release];
+                genres = [...genres, ...gre[i].genre];
             }
 
             const averages: AverageStats = {
@@ -87,7 +110,9 @@ export default function RadarGraph(data: DataProps) {
                 tempo: tempoTotal / len,
                 popularity: popularityTotal / len,
                 mood: moodTotal / len,
-                energy: energyTotal / len
+                energy: energyTotal / len,
+                genre: findMode(genres, true),
+                release: findMode(release, false),
             };
 
             switch (time) {
