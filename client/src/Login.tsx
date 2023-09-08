@@ -11,7 +11,7 @@ export default function Login() {
                 <div className='flex flex-col items-center'>
                     <p className='text-center'>Your personal Spotify listening habits all in one digestable chart.</p>
                 </div>
-                <a href={LOGIN_URI} className='bg-green-500 hover:bg-blue-950 hover:text-white hover:border-green-500 border-2 border-blue-950 text-black font-extrabold py-3 px-6 w-fit relative rounded-xl'>
+                <a href={LOGIN_URI} className='bg-green-500 hover:bg-blue-950 hover:text-white border-2 border-green-500 text-black font-extrabold py-3 px-6 w-fit relative rounded-xl duration-200'>
                     Login with Spotify
                 </a>
                 <div className='items-center flex flex-col text-sm'>

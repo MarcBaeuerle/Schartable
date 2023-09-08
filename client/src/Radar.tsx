@@ -60,6 +60,17 @@ const findMode = (array: Array<string>, genre: boolean): string => {
     return maxElement;
 }
 
+const topKFrequent = (array: Array<string>, k: number, genre: boolean): Array<string> => {
+    let hash:any = {};
+    array.forEach((x) => {
+        let val = (genre ? x : x.slice(0,3));
+        if (!hash[val]) hash[val] = 0;
+        hash[val]++;
+    })
+    let arr = [...Object.keys(hash)].sort((a, b) => hash[b] - hash[a]).splice(0, k);
+    return arr;
+}
+
 export default function RadarGraph(data: DataProps) {
     let short_averages: AverageStats;
     let long_averages: AverageStats;
@@ -111,8 +122,8 @@ export default function RadarGraph(data: DataProps) {
                 popularity: popularityTotal / len,
                 mood: moodTotal / len,
                 energy: energyTotal / len,
-                genre: findMode(genres, true),
-                release: findMode(release, false),
+                genre: topKFrequent(genres, 3, true),
+                release: topKFrequent(release, 1, false),
             };
 
             switch (time) {
@@ -165,7 +176,7 @@ export default function RadarGraph(data: DataProps) {
     return (
         <>
             <section className="flex flex-wrap justify-center gap-10 pt-4">
-                <div>
+                <div className="w-5/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
                     <Radar data={chartData} options={{
                         scales: {
                             r: {

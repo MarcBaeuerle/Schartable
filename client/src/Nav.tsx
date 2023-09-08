@@ -5,7 +5,7 @@ import { logout } from "./spotify";
 export default function Nav() {
     return (
         <>
-            <nav className="flex justify-between p-7 items-center bg-red-50 text-blue-950 text-xl font-medium">
+            <nav className="flex justify-between p-7 text-center items-center text-blue-950 text-xl font-medium">
                 <img src="./src/assets/spotify_banner_black.png" className="h-14" />
                 <div className="flex gap-3 bg-white h-fit items-center">
                     <Link to="/" className="transform duration-300 p-3 hover:-translate-y-1">Home</Link>

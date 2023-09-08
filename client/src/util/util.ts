@@ -44,8 +44,8 @@ export interface AverageStats {
     popularity: number;
     mood: number;
     energy: number;
-    genre: string;
-    release: string;
+    genre: Array<string>;
+    release: Array<string>;
 }
 
 export interface DataProps {
@@ -67,9 +67,8 @@ export function convertArrToReadableString(arr: Array<string>): string {
     if (arr.length === 0) return '';
     if (arr.length === 1) return arr[0].toString();
 
-    return arr.reduce((prevText, nextNum, i, array) => {
-        const isLastItem = i === array.length - 1;
-        const delimiter = isLastItem ? ', and' : ',';
+    return arr.reduce((prevText, nextNum) => {
+        const delimiter = ', '
         return `${prevText}${delimiter} ${nextNum}`;
     });
 }

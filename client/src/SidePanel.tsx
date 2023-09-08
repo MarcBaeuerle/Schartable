@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { AverageProps, msToMinutesAndSecond } from "./util/util";
+import { AverageProps, convertArrToReadableString, msToMinutesAndSecond } from "./util/util";
 
 export default function SidePanel(data: AverageProps) {
     let genre = data.data?.genre;
     return (
     <>
-            <div>
-                <h2>Last Months Averages</h2>
-                <div>
-                    <div>
+            <section className="flex flex-col p-6 rounded-3xl bg-blue-950 gap-2 h-fit my-auto shadow-2xl shadow-blue-950 text-slate-50 w-fit">
+                <h4 className="text-xl">Last Months Averages</h4>
+                <hr className="bg-green-500 text-green-500"/>
+                <div className="flex gap-4 leading-7">
+                    <div className="">
                         <p>Duration:</p>
-                        <p>Tempo:</p>
                         <p>Decade:</p>
+                        <p>Tempo:</p>
                         <p>Genre:</p>
                     </div>
                     <div>
+                        <p>{data ? data.data?.release[0] + "0's" : ''}</p>
                         <p>{msToMinutesAndSecond(data.data?.duration || 0)} </p>
                         <p>{Math.floor(data.data?.tempo || 0)} bpm </p>
-                        <p>{data.data?.release + "0's"}</p>
-                        <p>{genre ? genre?.charAt(0).toUpperCase() + genre?.slice(1) : ''}</p>
+                        <p>{genre ? genre[0] : 0}</p>
                     </div>
                 </div>
 
-            </div>
+            </section>
     </>
     )
 
