@@ -14,8 +14,8 @@ import { Radar } from 'react-chartjs-2';
 import BezierEasing from "bezier-easing";
 import SidePanel from "./SidePanel";
 
-const easing = BezierEasing(0.4,0,0.6,1);
-const durationEasing = BezierEasing(0.2,0,0.8,1);
+const easing = BezierEasing(0.45,0,0.55,1);
+const durationEasing = BezierEasing(0.25,0,0.75,1);
 const MIN_D = 60000; //1 minute
 const MAX_D = 360000; //6 minutes
 const MIN_T = 40;
@@ -77,6 +77,7 @@ export default function RadarGraph(data: DataProps) {
 
     const [finalAverages, setFinalAverages] = useState<ChartAverages>();
     const [errorMsg, setErrorMsg] = useState<Boolean>(false);
+    const [windowSmall, setWindowSmall] = useState<Boolean>(false);
 
     const checkData = (): void => {
         if (short_averages && long_averages) {
@@ -88,6 +89,18 @@ export default function RadarGraph(data: DataProps) {
         }
         return;
     }
+
+    const detechResize = () => {
+        setWindowSmall(window.innerWidth > 1024 ? false : true);
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', detechResize);
+
+        return() => {
+            window.removeEventListener('resize', detechResize);
+        }
+    }, [windowSmall])
 
     const getAnalysis = (time: "short_term" | "long_term") => {
         const range = (time === "short_term") ? data.data!.short_term.Tracks : data.data!.long_term.Tracks;
@@ -172,40 +185,43 @@ export default function RadarGraph(data: DataProps) {
                 pointHoverBorderColor: 'rgb(15, 30, 87)'
             }]
     }
+    
+    const chartOptions = {
+        scales: {
+            r: {
+                ticks: { //Removes numbers
+                    display: false,
+                },
+                angleLines: {
+                    color: 'black',
+                },
+                pointLabels: {
+                    color: 'black',
+                    font: {
+                        size: windowSmall ? 14 : 17,
+                    }
+                },
+                suggestedMin: 0,
+                suggestedMax: 10,
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    boxWidth: windowSmall ? 20 : 40,
+                    font: {
+                        size: windowSmall ? 14 : 16,
+                    }
+                }
+            }
+        }
+    }
 
     return (
         <>
-            <section className="flex flex-wrap justify-center gap-10 pt-4">
-                <div className="w-5/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
-                    <Radar data={chartData} options={{
-                        scales: {
-                            r: {
-                                ticks: { //Removes numbers
-                                    display: false,
-                                },
-                                angleLines: {
-                                    color: 'black',
-                                },
-                                pointLabels: {
-                                    color: 'black',
-                                    font: {
-                                        size: 17,
-                                    }
-                                },
-                                suggestedMin: 0,
-                                suggestedMax: 10,
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: 16,
-                                    }
-                                }
-                            }
-                        }
-                    }} />
+            <section className="flex flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
+                <div className="w-4/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
+                    <Radar data={chartData} options={chartOptions} />
                 </div>
                 <SidePanel data={finalAverages?.short_term} />
             </section>

@@ -6,7 +6,7 @@ const LOGIN_URI = `http://localhost:3001/login/?in=${checkLoggedIn()}`;
 export default function Login() {
     return (
         <section className='relative flex h-fit w-full'>
-            <div className='z-30 mx-auto mt-16 mb-auto font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around shadow-2xl shadow-black'>
+            <div className='mx-auto mt-16 mb-auto font-rale rounded-3xl h-96 w-80 bg-blue-950 text-gray-200 p-7 flex flex-col items-center justify-around shadow-2xl shadow-black'>
                 <h1 className='text-3xl font-mont'>Spotify Radar</h1>
                 <div className='flex flex-col items-center'>
                     <p className='text-center'>Your personal Spotify listening habits all in one digestable chart.</p>
