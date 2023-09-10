@@ -3,6 +3,7 @@ import { getTopArtists, getTopTracks, getUser } from "./spotify";
 import { Artist, CombinedData, Track } from "./util/util";
 import RadarGraph from "./Radar";
 import BottomList from "./BottomList";
+import Footer from "./Footer";
 
 export default function Profile() {
     let name: string;
@@ -110,11 +111,14 @@ export default function Profile() {
 
     return (
         <>
-            <h1 className="text-4xl sm:text-5xl text-center py-1 sm:py-4 font-bold font-mont
-                text-blue-950">
-                {combinedData?.user_name ? `${combinedData.user_name}'s` : ''} Schartify</h1>
+            <section className="py-1 sm:py-4 text-center">
+                <h1 className="text-4xl sm:text-5xl font-semibold font-mont text-blue-950">
+                    {combinedData?.user_name ? `${combinedData.user_name}'s` : ''} Schartify</h1>
+                <p className="text-center text-gray-600 font-semibold text-xs sm:text-sm">{new Date().toDateString()}</p>
+            </section>
             <RadarGraph data={combinedData} />
             <BottomList data={combinedData} />
+            <Footer />
         </>
     )
 }

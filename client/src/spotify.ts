@@ -18,7 +18,7 @@ const setLocalRefreshToken = (token: string): void => {
     window.localStorage.setItem('refresh_token', token);
 }
 
-const getTokenTimeStamp = (): number => {
+export const getTokenTimeStamp = (): number => {
     let str = window.localStorage.getItem('token_timestamp') || '';
     if (DEBUG) console.log(`TokenTimestamp: ${str.slice(0,5)}`);
     return Number(str);

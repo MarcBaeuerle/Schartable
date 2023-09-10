@@ -2,7 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto+Slab:wght@400;500&family=Ubuntu:wght@300;400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&family=Roboto+Mono&family=Source+Code+Pro:wght@500&family=Ubuntu:wght@300;400;500&display=swap');
+.noise0::before, .noise0::after, .noise1::before, .noise1::after, .noise2::before, .noise2::after, .noise3::before, .noise3::after{
+    position: absolute;
+    top:0;
+    left:0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
 
+.noise0::after {
+    background-color:#ff99aa;
+    background-image:
+        radial-gradient(at 85% 21%, hsla(28,90%,66%,1) 0px, transparent 50%),
+        radial-gradient(at 94% 0%, hsla(79,75%,61%,1) 0px, transparent 50%),
+        radial-gradient(at 60% 0%, hsla(179,66%,75%,1) 0px, transparent 50%),
+        radial-gradient(at 37% 16%, hsla(334,92%,78%,1) 0px, transparent 50%),
+        radial-gradient(at 94% 89%, hsla(239,60%,78%,1) 0px, transparent 50%),
+        radial-gradient(at 95% 32%, hsla(253,73%,74%,1) 0px, transparent 50%),
+        radial-gradient(at 3% 12%, hsla(332,97%,66%,1) 0px, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.92' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.noise1::after {
+    background-color:hsla(0,56%,69%,1);
+    background-image:
+        radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(240,100%,85%,0.6) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.92' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.noise2::after {
+    background-color:#f699ff;
+    background-image:
+        radial-gradient(at 20% 37%, hsla(187,83%,66%,1) 0px, transparent 50%),
+        radial-gradient(at 45% 81%, hsla(45,68%,72%,1) 0px, transparent 50%),
+        radial-gradient(at 47% 50%, hsla(164,92%,73%,1) 0px, transparent 50%),
+        radial-gradient(at 59% 2%, hsla(115,93%,72%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 82%, hsla(214,77%,63%,1) 0px, transparent 50%),
+        radial-gradient(at 38% 89%, hsla(217,93%,63%,1) 0px, transparent 50%),
+        radial-gradient(at 25% 66%, hsla(210,82%,61%,1) 0px, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.92' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.noise3::after {
+    background-color:#dfff99;
+    background-image:
+        radial-gradient(at 69% 72%, hsla(294,62%,65%,1) 0px, transparent 50%),
+        radial-gradient(at 55% 2%, hsla(178,73%,67%,1) 0px, transparent 50%),
+        radial-gradient(at 4% 97%, hsla(300,71%,64%,1) 0px, transparent 50%),
+        radial-gradient(at 75% 49%, hsla(156,98%,68%,1) 0px, transparent 50%),
+        radial-gradient(at 87% 92%, hsla(59,73%,70%,1) 0px, transparent 50%),
+        radial-gradient(at 51% 37%, hsla(24,86%,63%,1) 0px, transparent 50%),
+        radial-gradient(at 94% 88%, hsla(289,93%,68%,1) 0px, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.92' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
 
