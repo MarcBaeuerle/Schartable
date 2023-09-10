@@ -9,5 +9,4 @@ export default function Background() {
     return (
         <div className={`-z-50 ${randomBackground()} h-screen w-full fixed top-0 opacity-[40%] brightness-95`}></div>
     )
-
 }

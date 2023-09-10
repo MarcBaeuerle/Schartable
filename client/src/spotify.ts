@@ -4,6 +4,13 @@ import { groupConsole, Track } from "./util/util";
 const DEBUG = false;
 const EXPIRATION_TIME: number = 3600 * 1000;
 const SERVER = `http://localhost:3001`;
+let USER: any;
+let TOP_ARTISTS_SHORT: any;
+let TOP_ARTISTS_LONG: any;
+let TOP_SONGS_SHORT: any;
+let TOP_SONGS_LONG: any;
+let TRACK_ANALYSIS_SHORT:any;
+let TRACK_ANALYSIS_LONG:any;
 
 const setTokenTimeStamp = (): void => {
     window.localStorage.setItem('token_timestamp', Date.now().toString());
@@ -93,15 +100,27 @@ export const example = async () => {
 }
 
 export const getUser = async () => {
-    return (await axios.get('https://api.spotify.com/v1/me', getHeaders()));
+    if (USER) return USER;
+    return USER = await axios.get('https://api.spotify.com/v1/me', getHeaders());
 }
 
 export const getTopTracks = async (time: "short_term" | "long_term") => {
-    return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, getHeaders()))
+    if (time === "short_term") {
+        if (TOP_SONGS_SHORT) return TOP_SONGS_LONG;
+        return TOP_SONGS_SHORT = await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, getHeaders());
+    } else {
+        if (TOP_SONGS_LONG) return TOP_SONGS_LONG;
+        return TOP_SONGS_LONG = await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, getHeaders());
+    }
 }
 
 export const getTopArtists = async (time: "short_term" | "long_term") => {
-    return (await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders()));
+    if (time === "short_term") {
+        if (TOP_ARTISTS_SHORT) return TOP_ARTISTS_SHORT;
+        return TOP_ARTISTS_SHORT = await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders());
+    } else {
+        return TOP_ARTISTS_LONG = await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders());
+    }
 }
 
 export const getTracksAnalysis = async (tracksObj: Array<Track>): Promise<any> => {

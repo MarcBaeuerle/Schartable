@@ -26,12 +26,10 @@ export default function App() {
         <>
             <Background />
             <Nav test={access} />
-            <div>
-                <Routes>
-                    <Route path="/" element={access ? <Profile /> : <Login />} />
-                    <Route path="/Privacy" element={<Privacy />} />
-                </Routes>
-            </div>
+            <Routes>
+                <Route path="/" element={access ? <Profile /> : <Login />} />
+                <Route path="/Privacy" element={<Privacy />} />
+            </Routes>
         </>
     )
 }

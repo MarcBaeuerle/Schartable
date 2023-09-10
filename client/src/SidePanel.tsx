@@ -16,8 +16,8 @@ export default function SidePanel(data: AverageProps) {
                         <p>Genre:</p>
                     </div>
                     <div>
-                        <p>{data ? data.data?.release[0] + "0's" : ''}</p>
                         <p>{msToMinutesAndSecond(data.data?.duration || 0)} </p>
+                        <p>{genre ? data.data?.release[0] + "0's" : <span>0's</span>}</p>
                         <p>{Math.floor(data.data?.tempo || 0)} bpm </p>
                         <p>{genre ? genre[0] : 0}</p>
                     </div>

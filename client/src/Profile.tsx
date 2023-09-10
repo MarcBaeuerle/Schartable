@@ -118,7 +118,7 @@ export default function Profile() {
             </section>
             <RadarGraph data={combinedData} />
             <BottomList data={combinedData} />
-            <Footer />
+            {combinedData ? <Footer /> : null}
         </>
     )
 }

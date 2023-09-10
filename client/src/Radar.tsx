@@ -13,6 +13,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 import BezierEasing from "bezier-easing";
 import SidePanel from "./SidePanel";
+import { Loader } from "./Loader";
 
 const easing = BezierEasing(0.45,0,0.55,1);
 const durationEasing = BezierEasing(0.25,0,0.75,1);
@@ -39,25 +40,6 @@ const computeScores = (data: AverageStats): Array<number> => {
     const newEnergy = easing(data.energy);
 
     return [newDuration, newTempo, newPopularity, newMood, newEnergy].map(x => x * 10);
-}
-
-const findMode = (array: Array<string>, genre: boolean): string => {
-    if (array.length == 0) return '';
-    let hashMap = new Map<string, number>();
-
-    let maxElement = array[0];
-    let maxCount = 1;
-
-    array.forEach((x) => {
-        let el = (genre ? x : x.slice(0,3));
-        hashMap.get(el) ? hashMap.set(el, hashMap.get(el)! +1) : hashMap.set(el, 1);
-
-        if (hashMap.get(el)! > maxCount) {
-            maxElement = el;
-            maxCount = hashMap.get(el)!;
-        }
-    })
-    return maxElement;
 }
 
 const topKFrequent = (array: Array<string>, k: number, genre: boolean): Array<string> => {
@@ -219,7 +201,13 @@ export default function RadarGraph(data: DataProps) {
 
     return (
         <>
-            <section className="flex flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
+            <section className="flex relative flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
+                {finalAverages ? null : 
+                    <div className="z-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <Loader />
+                    </div>
+                }
+
                 <div className="w-4/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
                     <Radar data={chartData} options={chartOptions} />
                 </div>
