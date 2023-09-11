@@ -106,7 +106,7 @@ export const getUser = async () => {
 
 export const getTopTracks = async (time: "short_term" | "long_term") => {
     if (time === "short_term") {
-        if (TOP_SONGS_SHORT) return TOP_SONGS_LONG;
+        if (TOP_SONGS_SHORT) return TOP_SONGS_SHORT;
         return TOP_SONGS_SHORT = await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${time}`, getHeaders());
     } else {
         if (TOP_SONGS_LONG) return TOP_SONGS_LONG;
@@ -119,6 +119,7 @@ export const getTopArtists = async (time: "short_term" | "long_term") => {
         if (TOP_ARTISTS_SHORT) return TOP_ARTISTS_SHORT;
         return TOP_ARTISTS_SHORT = await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders());
     } else {
+        if (TOP_ARTISTS_LONG) return TOP_ARTISTS_LONG;
         return TOP_ARTISTS_LONG = await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=50&time_range=${time}`, getHeaders());
     }
 }

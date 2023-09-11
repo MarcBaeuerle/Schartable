@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Privacy() {
     return (
-        <section className='relative flex h-fit w-full px-5'>
+        <section className='relative flex h-fit w-full px-5 pb-20'>
             <div className="mx-auto mt-16 bg-blue-950 text-gray-200 mb-auto font-rale rounded-3xl p-7 flex flex-col justify-around shadow-2xl shadow-black w-150 gap-7 pt-11">
                 <h1 className="text-3xl font-mont text-center">Privacy Policy</h1>
                 <div>
