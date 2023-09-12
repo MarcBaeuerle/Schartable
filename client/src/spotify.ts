@@ -124,7 +124,15 @@ export const getTopArtists = async (time: "short_term" | "long_term") => {
     }
 }
 
-export const getTracksAnalysis = async (tracksObj: Array<Track>): Promise<any> => {
+export const getTracksAnalysis = async (tracksObj: Array<Track>, range: "short_term" | "long_term"): Promise<any> => {
+    let track = (range === "short_term");
+
+    if (track) {
+        if (TRACK_ANALYSIS_SHORT) return TRACK_ANALYSIS_SHORT;
+    } else {
+        if (TRACK_ANALYSIS_LONG) return TRACK_ANALYSIS_LONG;
+    }
+
     let id_arr: Array<string> = [];
     tracksObj.map((data) => {
         id_arr.push(data.ID);
@@ -132,7 +140,12 @@ export const getTracksAnalysis = async (tracksObj: Array<Track>): Promise<any> =
 
     let params = id_arr.toString().split(',').join('%2C');
     let URL = 'https://api.spotify.com/v1/audio-features?ids=' + params;
-    return (await axios.get(URL, getHeaders()));
+
+    let data = await axios.get(URL, getHeaders());
+
+    track ? TRACK_ANALYSIS_SHORT = data : TRACK_ANALYSIS_LONG = data;
+
+    return data;
 }
 
 

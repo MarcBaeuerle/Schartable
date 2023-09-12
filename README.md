@@ -1,4 +1,4 @@
-# Schartify
+# Schartly
 
 
 ## Installation

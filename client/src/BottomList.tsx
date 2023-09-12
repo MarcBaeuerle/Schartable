@@ -50,7 +50,7 @@ export default function BottomList(data: DataProps) {
                 {showArtists ? renderArtists() : renderTracks()}
             </section>
 
-            <button className={`py-2 px-10 border-2 text-blue-950 duration-200 border-blue-950 border-opacity-80 rounded-xl flex mx-auto mt-7 ${showCount == 50 ? 'hidden' : ''}`} onClick={() => {setShowCount(showCount + 10)}}>Show More</button>
+            <button className={`py-2 px-10 border-2 text-blue-950 duration-200 border-blue-950 border-opacity-80 hover:bg-white rounded-xl flex mx-auto mt-7 ${showCount == 50 ? 'hidden' : ''}`} onClick={() => {setShowCount(showCount + 10)}}>Show More</button>
         </>
 
     )

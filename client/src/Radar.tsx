@@ -13,6 +13,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 import BezierEasing from "bezier-easing";
 import SidePanel from "./SidePanel";
+import { ErrorIcon, ErrorExit } from "./Profile";
 import { Loader } from "./Loader";
 
 const easing = BezierEasing(0.45,0,0.55,1);
@@ -58,8 +59,8 @@ export default function RadarGraph(data: DataProps) {
     let long_averages: AverageStats;
 
     const [finalAverages, setFinalAverages] = useState<ChartAverages>();
-    const [errorMsg, setErrorMsg] = useState<Boolean>(false);
-    const [windowSmall, setWindowSmall] = useState<Boolean>(false);
+    const [error, setError] = useState<Boolean>(false);
+    const [windowSmall, setWindowSmall] = useState<Boolean>(window.innerWidth < 1024);
 
     const checkData = (): void => {
         if (short_averages && long_averages) {
@@ -88,7 +89,7 @@ export default function RadarGraph(data: DataProps) {
         const range = (time === "short_term") ? data.data!.short_term.Tracks : data.data!.long_term.Tracks;
         let [popularityTotal, tempoTotal, moodTotal, durationTotal, energyTotal] = [0,0,0,0,0];
 
-        getTracksAnalysis(range).then((res) => {
+        getTracksAnalysis(range, time).then((res) => {
             let len: number;
             let release: Array<string> = [];
             let genres: Array<string> = [];
@@ -131,8 +132,8 @@ export default function RadarGraph(data: DataProps) {
             }
             checkData();
         }).catch((error) => {
-                console.log(error);
-                setErrorMsg(true);
+                console.error(error);
+                setError(true);
             })
         return;
     }
@@ -202,6 +203,20 @@ export default function RadarGraph(data: DataProps) {
     return (
         <>
             <section className="flex relative flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
+
+            {error ? 
+                <section className="z-50 w-full h-full fixed bg-opacity-50 bg-gray-400 top-0">
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-400 flex p-3 rounded-md items-center whitespace-nowrap text-white">
+                        <ErrorIcon />
+                        <div className="flex flex-col ml-2 mr-5">
+                            <p> Opps! Something went wrong. </p>
+                            <p> Try refreshing in a bit. </p>
+                        </div>
+                        <button onClick={() => setError(false)}>
+                            <ErrorExit />
+                        </button>
+                    </div>
+                </section> : null}
                 {finalAverages ? null : 
                     <div className="z-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <Loader />
