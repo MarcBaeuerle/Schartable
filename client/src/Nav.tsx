@@ -18,11 +18,11 @@ export default function Nav({ test } :any) {
     }
 
     const home = (
-        <Link to="/" onClick={toggleMenu} className="transform duration-300 p-3 hover:-translate-y-1">Home</Link>
+        <Link to="./" onClick={toggleMenu} className="transform duration-300 p-3 hover:-translate-y-1">Home</Link>
     )
 
     const privacy = (
-        <Link to="/Privacy" onClick={toggleMenu} className="transform duration-300 p-3 hover:-translate-y-1">Privacy Policy</Link>
+        <Link to="./Privacy" onClick={toggleMenu} className="transform duration-300 p-3 hover:-translate-y-1">Privacy Policy</Link>
     )
 
     const log = (
