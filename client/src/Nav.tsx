@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "./spotify";
 import { LOGIN_URI } from "./Login";
+import icon from '../public/spotify_icn_black.png';
+import banner from '../public/spotify_banner_black.png';
 
 export default function Nav({ test } :any) {
     const [openMenu, setOpenMenu] = useState(false);
@@ -35,8 +37,8 @@ export default function Nav({ test } :any) {
                 {log}
             </nav>
             <nav className="flex justify-between p-7 font-rale font-semibold text-center items-center text-blue-950 text-xl">
-                <img src="./src/assets/spotify_banner_black.png" className="h-14 hidden sm:inline" />
-                <img src="./src/assets/spotify_icn_black.png" className="h-14 inline sm:hidden" />
+                <img src={banner} className="h-14 hidden sm:inline" />
+                <img src={icon} className="h-14 inline sm:hidden" />
                 <div onClick={toggleMenu} className="flex z-10 flex-col gap-2 p-3 md:hidden align-middle cursor-pointer">
                     <span className="bg-black h-1 w-10 rounded-full block"></span>
                     <span className="bg-black h-1 w-10 rounded-full block"></span>

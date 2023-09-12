@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { AverageProps, convertArrToReadableString, msToMinutesAndSecond } from "./util/util";
+import { AverageProps, msToMinutesAndSecond } from "./util/util";
 
 export default function SidePanel(data: AverageProps) {
     let genre = data.data?.genre;

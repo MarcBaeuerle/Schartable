@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Privacy() {
     return (
         <section className='relative flex h-fit w-full px-5 pb-20'>
