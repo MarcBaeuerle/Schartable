@@ -113,7 +113,7 @@ export default function Profile() {
         <>
             <section className="py-1 sm:py-4 text-center">
                 <h1 className="text-4xl sm:text-5xl font-semibold font-mont text-blue-950">
-                    {combinedData?.user_name ? `${combinedData.user_name}'s` : ''} Schartly</h1>
+                    {combinedData?.user_name ? `${combinedData.user_name}'s` : ''} Schartable</h1>
                 <p className="text-center text-gray-600 font-semibold text-xs sm:text-sm">{new Date().toDateString()}</p>
             </section>
             {error ? 

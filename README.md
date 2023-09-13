@@ -1,4 +1,4 @@
-# Schartly
+# Schartable
 
 
 ## Installation

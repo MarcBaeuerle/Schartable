@@ -12,7 +12,7 @@ export default function Privacy() {
                     </ul>
                 </div>
                 <p>None of the data used from Spotify is being stored or shared with third parties. All the information obtained is used solely for displaying you average listening stats and top songs of the month. </p>
-                <p>If you would like to remove this sites permission from fetching your data through Spotifies developer API, then you can visit <a className='font-semibold underline hover:text-green-500 duration-200' href='https://www.spotify.com/us/account/apps/'>this page</a> and remove "Schartly"'s access.</p>
+                <p>If you would like to remove this sites permission from fetching your data through Spotifies developer API, then you can visit <a className='font-semibold underline hover:text-green-500 duration-200' href='https://www.spotify.com/us/account/apps/'>this page</a> and remove "Schartable"'s access.</p>
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'

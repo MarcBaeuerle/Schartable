@@ -45,8 +45,8 @@ export default function App() {
             <Background />
             <Nav test={access} />
             <Routes>
-                <Route path="./" element={access ? <Profile /> : <Login />} />
-                <Route path="./Privacy" element={<Privacy />} />
+                <Route path="/" element={access ? <Profile /> : <Login />} />
+                <Route path="/Privacy" element={<Privacy />} />
             </Routes>
         </>
     )
