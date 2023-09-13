@@ -5,12 +5,14 @@ const REDIRECT_URI = process.env.VITE_REDIRECT_URI || `http://localhost:3001/cal
 const CLIENT_ID = process.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = process.env.VITE_CLIENT_SECRET;
 const PORT = process.env.VITE_PORT || 3001;
-const DEBUG = true;
+const DEBUG = false;
 
 const express = require('express');
 const cors = require('cors');
 const querystring = require('querystring');
 const request = require('request');
+let loginCount = 0;
+let callbackCount = 0;
 
 const app = express();
 app.use(cors());
@@ -29,7 +31,8 @@ const btoa = (input: string): any => {
 }
 
 app.get(`/login`, (req, res) => {
-    if (DEBUG) console.log('LOGIN hit');
+    loginCount++;
+    console.log(`LOGIN ${loginCount} hit`);
     const state = generateRandomString(16);
     const scope = `user-read-private user-top-read`;
     const dialog = req.query.in;
@@ -53,7 +56,8 @@ app.get(`/cron`, (req, res) => {
 })
 
 app.get('/callback', (req, res) => {
-    if (DEBUG) console.log('CALLBACK hit');
+    callbackCount++
+    console.log(`CALLBACK ${callbackCount} hit`)
     const code = req.query.code || null;
     const state = req.query.state || null;
 
