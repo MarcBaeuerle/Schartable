@@ -24,6 +24,10 @@ const generateRandomString = (length: number): string => {
     return str;
 }
 
+const btoa = (input: string): any => {
+    return Buffer.from(input).toString('base64');
+}
+
 app.get(`/login`, (req, res) => {
     if (DEBUG) console.log('LOGIN hit');
     const state = generateRandomString(16);

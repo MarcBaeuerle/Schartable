@@ -21,6 +21,9 @@ const generateRandomString = (length) => {
     }
     return str;
 };
+const btoa = (input) => {
+    return Buffer.from(input).toString('base64');
+};
 app.get(`/login`, (req, res) => {
     if (DEBUG)
         console.log('LOGIN hit');
