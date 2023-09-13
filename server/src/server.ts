@@ -47,6 +47,11 @@ app.get(`/login`, (req, res) => {
     )
 })
 
+app.get(`/cron`, (req, res) => {
+    if (DEBUG) console.log(`CRON HIT`);
+    res.send('yo');
+})
+
 app.get('/callback', (req, res) => {
     if (DEBUG) console.log('CALLBACK hit');
     const code = req.query.code || null;
