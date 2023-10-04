@@ -95,13 +95,16 @@ export default function RadarGraph(data: DataProps) {
             let genres: Array<string> = [];
             const gre = (time === "short_term") ? data.data!.short_term.Artists : data.data!.long_term.Artists;
 
+            console.log(time);
+            console.log(gre);
             (time === "short_term") ? len = 10 : len = res.data.audio_features.length;
 
-            for (let i = 0; i < ((time === "short_term") ? 10 : len); i++) {
+            for (let i = 0; i < len; i++) {
                 if (res.data.audio_features[i] === undefined) {
                     len = i - 1;
                     break;
                 }
+
                 let x = res.data.audio_features[i];
                 tempoTotal += x.tempo;
                 moodTotal += x.valence;
@@ -109,8 +112,12 @@ export default function RadarGraph(data: DataProps) {
                 energyTotal += x.energy;
                 popularityTotal += range[i].popularity;
                 release = [...release, range[i].release];
-                genres = [...genres, ...gre[i].genre];
             }
+
+            //handled on its own because of difference lenths between gre and res
+            gre.forEach((artists: any) => {
+                genres = [...genres, ...artists.genre];
+            })
 
             const averages: AverageStats = {
                 duration: durationTotal / len,
@@ -217,8 +224,8 @@ export default function RadarGraph(data: DataProps) {
                         </button>
                     </div>
                 </section> : null}
-                {finalAverages ? null : 
-                    <div className="z-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                {(finalAverages && !error)  ? null : 
+                    <div className="z-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                         <Loader />
                     </div>
                 }

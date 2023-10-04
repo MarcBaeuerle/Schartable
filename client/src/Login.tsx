@@ -1,5 +1,6 @@
 import { checkLoggedIn } from "./spotify";
 
+// toggle comment next two lines for dev vs production lol
 // export const LOGIN_URI = `http://localhost:3001/login/?in=${checkLoggedIn()}`;
 export const LOGIN_URI = `https://schartable.onrender.com/login/?in=${checkLoggedIn()}`;
 
