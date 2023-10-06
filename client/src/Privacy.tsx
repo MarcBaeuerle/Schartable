@@ -16,7 +16,7 @@ export default function Privacy() {
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
-                        href='https://github.com/MarcBaeuerle/Schartify'>Github</a>
+                        href='https://github.com/MarcBaeuerle/Schartable'>Github</a>
                     </p>
                 </div>
             </div>

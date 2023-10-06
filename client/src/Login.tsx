@@ -18,7 +18,7 @@ export default function Login() {
                 <div className='items-center flex flex-col text-sm'>
                     <p className=''>Built by Marc Baeuerle</p>
                     <p className=''>Project Hosted on <a className='underline duration-200 hover:text-green-500'
-                        href='https://github.com/MarcBaeuerle/Spotify-Radar'>Github</a>
+                        href='https://github.com/MarcBaeuerle/Schartable'>Github</a>
                     </p>
                 </div>
             </div>
