@@ -210,7 +210,7 @@ export default function RadarGraph(data: DataProps) {
 
     return (
         <>
-            <section className="flex w-full relative flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
+            <section className="flex relative flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
 
             {error ? 
                 <section className="z-50 w-full h-full fixed bg-opacity-50 bg-gray-400 top-0">
