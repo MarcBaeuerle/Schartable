@@ -181,6 +181,7 @@ export default function RadarGraph(data: DataProps) {
             r: {
                 ticks: { //Removes numbers
                     display: false,
+                    stepSize: 2,
                 },
                 angleLines: {
                     color: 'black',
@@ -209,7 +210,7 @@ export default function RadarGraph(data: DataProps) {
 
     return (
         <>
-            <section className="flex relative flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
+            <section className="flex w-full relative flex-wrap justify-center gap-1 sm:gap-10 py-3 px-1">
 
             {error ? 
                 <section className="z-50 w-full h-full fixed bg-opacity-50 bg-gray-400 top-0">
@@ -230,7 +231,7 @@ export default function RadarGraph(data: DataProps) {
                     </div>
                 }
 
-                <div className="w-4/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
+                <div className="w-5/6 aspect-square sm:w-1/2 md:w-2/5 max-w-md">
                     <Radar data={chartData} options={chartOptions} />
                 </div>
                 <SidePanel data={finalAverages?.short_term} />
