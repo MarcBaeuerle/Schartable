@@ -5,7 +5,7 @@ import '../public/output.css'
 
 console.log("%cWelcome to %cSchartable", "", "color: green; font-weight: bolder", "");
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <BrowserRouter basename='https://schartable.com/'>
+    <BrowserRouter>
         <App />
     </BrowserRouter>
 )
