@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "schartify",
     "main": "index.js",
+    "homepage": "https://schartable.com/",
     "scripts": {
         "client": "cd client && npm run dev",
         "installClient": "cd client && npm install",
